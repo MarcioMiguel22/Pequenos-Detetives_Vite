@@ -5,8 +5,8 @@ export const schoolExercises: SchoolExercise[] = [
   {
     id: 1,
     title: 'Identificação de Vogais',
-    grade: '1º ano',
-    subject: 'Português',
+    grade: '1º ano',  // Ensure this format matches the gradeMap in SchoolExercisesPage
+    subject: 'Português',  // Ensure this format matches the subjectMap in SchoolExercisesPage
     description: 'Identifique as vogais nas palavras apresentadas.',
     questions: [
       {
@@ -76,7 +76,7 @@ export const schoolExercises: SchoolExercise[] = [
       {
         id: 1,
         question: 'Quantas bolas há na imagem?',
-        imageUrl: '/images/exercises/five-balls.png',
+        imageUrl: 'emoji:🏀🏀🏀🏀🏀', // Using emoji instead of image URL
         options: ['3', '4', '5', '6'],
         correctAnswer: '5'
       },

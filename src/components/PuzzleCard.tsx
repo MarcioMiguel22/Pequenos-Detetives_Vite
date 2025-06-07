@@ -193,7 +193,15 @@ export default function PuzzleCard({ puzzle, onCorrectAnswer, isRetry = false }:
 
       {puzzle.image && (
         <div className="puzzle-image">
-          <img src={puzzle.image} alt={puzzle.title} />
+          {puzzle.image.startsWith('emoji:') ? (
+            <div className="emoji-display">
+              <span className="puzzle-emoji">{puzzle.image.replace('emoji:', '')}</span>
+            </div>
+          ) : (
+            <div className="emoji-display">
+              <span className="puzzle-emoji">🧩</span> {/* Default puzzle emoji */}
+            </div>
+          )}
         </div>
       )}
 

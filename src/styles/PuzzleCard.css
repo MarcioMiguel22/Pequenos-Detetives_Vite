@@ -367,6 +367,20 @@
   color: var(--error-color);
 }
 
+.emoji-display {
+  padding: 2rem;
+  background-color: var(--bg-color-light);
+  border-radius: 1rem;
+  display: inline-block;
+  margin: 1rem auto;
+}
+
+.puzzle-emoji {
+  font-size: 5rem;
+  line-height: 1;
+  display: block;
+}
+
 @media (max-width: 600px) {
   .puzzle-card {
     padding: 1rem;

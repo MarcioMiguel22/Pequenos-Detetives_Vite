@@ -5,9 +5,20 @@ import '../styles/SchoolExerciseCard.css';
 interface SchoolExerciseCardProps {
   exercise: SchoolExercise;
   onComplete: () => void;
+  onPrevious?: () => void;
+  onNext?: () => void;
+  isFirstExercise?: boolean;
+  isLastExercise?: boolean;
 }
 
-export default function SchoolExerciseCard({ exercise, onComplete }: SchoolExerciseCardProps) {
+export default function SchoolExerciseCard({ 
+  exercise, 
+  onComplete, 
+  onPrevious, 
+  onNext,
+  isFirstExercise = false,
+  isLastExercise = false
+}: SchoolExerciseCardProps) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
@@ -120,7 +131,12 @@ export default function SchoolExerciseCard({ exercise, onComplete }: SchoolExerc
 
       {currentQuestion.imageUrl && (
         <div className="question-image">
-          <img src={currentQuestion.imageUrl} alt="Imagem da questão" />
+          <div className="emoji-display">
+            {currentQuestion.imageUrl.startsWith('emoji:') 
+              ? <span className="question-emoji">{currentQuestion.imageUrl.replace('emoji:', '')}</span>
+              : <span className="question-emoji">📷</span> /* Default emoji if not properly formatted */
+            }
+          </div>
         </div>
       )}
 
@@ -147,6 +163,23 @@ export default function SchoolExerciseCard({ exercise, onComplete }: SchoolExerc
         >
           Verificar Resposta
         </button>
+        
+        <div className="navigation-buttons">
+          <button 
+            className="prev-button"
+            onClick={onPrevious}
+            disabled={isFirstExercise}
+          >
+            ← Anterior
+          </button>
+          <button 
+            className="next-button"
+            onClick={onNext}
+            disabled={isLastExercise}
+          >
+            Próximo →
+          </button>
+        </div>
       </div>
 
       {showResult && (
