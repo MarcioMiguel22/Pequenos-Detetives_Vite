@@ -76,16 +76,7 @@ export default function Header() {
               <span className="nav-text">Advinhas Simples</span>
             </Link>
           </li>
-          <li className={`nav-item ${activeLink === 'detective' ? 'active' : ''}`}>
-            <Link 
-              to="/detective" 
-              className="nav-link detective-link"
-              onClick={() => handleNavClick('detective')}
-            >
-              <span className="nav-icon">🔍</span>
-              <span className="nav-text">Enigmas de Detetive</span>
-            </Link>
-          </li>
+         
           <li className={`nav-item ${activeLink === 'challenge-riddles' ? 'active' : ''}`}>
             <Link 
               to="/challenge-riddles" 
@@ -94,6 +85,16 @@ export default function Header() {
             >
               <span className="nav-icon">🎯</span>
               <span className="nav-text">Advinhas Desafiantes</span>
+            </Link>
+          </li>
+           <li className={`nav-item ${activeLink === 'detective' ? 'active' : ''}`}>
+            <Link 
+              to="/detective" 
+              className="nav-link detective-link"
+              onClick={() => handleNavClick('detective')}
+            >
+              <span className="nav-icon">🔍</span>
+              <span className="nav-text">Enigmas de Detetive</span>
             </Link>
           </li>
           <li className="nav-item theme-toggle-item">
