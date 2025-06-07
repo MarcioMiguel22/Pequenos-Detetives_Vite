@@ -5,17 +5,19 @@ import SchoolExerciseCard from '../components/SchoolExerciseCard';
 import '../styles/SchoolExercisesPage.css';
 
 export default function SchoolExercisesPage() {
-  const { id } = useParams<{ id: string }>();
+  const { subject, id } = useParams<{ subject: string; id: string }>();
   const navigate = useNavigate();
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
-  const [filteredExercises] = useState(schoolExercises);
+  const [filteredExercises] = useState(
+    schoolExercises.filter(exercise => exercise.subject.toLowerCase() === subject)
+  );
   const [completedExercises, setCompletedExercises] = useState<number[]>([]);
 
   useEffect(() => {
     const exerciseId = parseInt(id || '1', 10);
-    const index = schoolExercises.findIndex(exercise => exercise.id === exerciseId);
+    const index = filteredExercises.findIndex(exercise => exercise.id === exerciseId);
     setCurrentExerciseIndex(index >= 0 ? index : 0);
-  }, [id]);
+  }, [id, filteredExercises]);
 
   useEffect(() => {
     // Load completed exercises from localStorage
@@ -26,6 +28,8 @@ export default function SchoolExercisesPage() {
   }, []);
 
   const handleExerciseComplete = () => {
+    if (filteredExercises.length === 0) return;
+    
     const currentExerciseId = filteredExercises[currentExerciseIndex].id;
     if (!completedExercises.includes(currentExerciseId)) {
       const updatedCompleted = [...completedExercises, currentExerciseId];
@@ -36,19 +40,38 @@ export default function SchoolExercisesPage() {
     // Move to next exercise
     const nextIndex = currentExerciseIndex + 1;
     if (nextIndex < filteredExercises.length) {
-      navigate(`/school-exercises/${filteredExercises[nextIndex].id}`);
+      navigate(`/school-exercises/${subject}/${filteredExercises[nextIndex].id}`);
     } else {
       // If all exercises are completed, redirect to results page
       navigate('/result', { state: { source: 'school-exercises' } });
     }
   };
 
+  // Get subject name in Portuguese
+  const getSubjectName = () => {
+    switch (subject) {
+      case 'portuguese': return 'Português';
+      case 'math': return 'Matemática';
+      case 'english': return 'Inglês';
+      case 'environment': return 'Estudo do Meio';
+      default: return 'Disciplina';
+    }
+  };
+
   if (filteredExercises.length === 0) {
     return (
       <div className="school-exercises-page">
-        <h2>Exercícios Escolares</h2>
+        <div className="subject-header">
+          <h2>Exercícios de {getSubjectName()}</h2>
+          <button 
+            className="back-button"
+            onClick={() => navigate('/school-exercises')}
+          >
+            ← Voltar para Disciplinas
+          </button>
+        </div>
         <p className="no-exercises-message">
-          Não existem exercícios disponíveis.
+          Não existem exercícios disponíveis para esta disciplina.
         </p>
       </div>
     );
@@ -58,7 +81,15 @@ export default function SchoolExercisesPage() {
 
   return (
     <div className="school-exercises-page">
-      <h2>Exercícios Escolares</h2>
+      <div className="subject-header">
+        <h2>Exercícios de {getSubjectName()}</h2>
+        <button 
+          className="back-button"
+          onClick={() => navigate('/school-exercises')}
+        >
+          ← Voltar para Disciplinas
+        </button>
+      </div>
       
       <div className="exercises-progress">
         <span>Exercício {currentExerciseIndex + 1} de {filteredExercises.length}</span>
