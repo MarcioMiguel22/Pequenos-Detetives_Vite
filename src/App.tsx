@@ -8,6 +8,7 @@ import ResultPage from './pages/ResultPage';
 import DetectivePuzzlesPage from './pages/DetectivePuzzlesPage';
 import ChallengeRiddlesPage from './pages/ChallengeRiddlesPage';
 import SchoolExercisesPage from './pages/SchoolExercisesPage';
+import GradeSelectionPage from './pages/GradeSelectionPage';
 import SubjectSelectionPage from './pages/SubjectSelectionPage';
 import './styles/App.css';
 
@@ -26,8 +27,9 @@ function App() {
               <Route path="/detective/:id" element={<DetectivePuzzlesPage />} />
               <Route path="/challenge-riddles" element={<Navigate to="/challenge-riddles/1" replace />} />
               <Route path="/challenge-riddles/:id" element={<ChallengeRiddlesPage />} />
-              <Route path="/school-exercises" element={<SubjectSelectionPage />} />
-              <Route path="/school-exercises/:subject/:id" element={<SchoolExercisesPage />} />
+              <Route path="/school-exercises" element={<GradeSelectionPage />} />
+              <Route path="/school-exercises/:grade" element={<SubjectSelectionPage />} />
+              <Route path="/school-exercises/:grade/:subject/:id" element={<SchoolExercisesPage />} />
               <Route path="/result" element={<ResultPage />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>

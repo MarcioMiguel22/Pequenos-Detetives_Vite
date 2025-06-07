@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import '../styles/SubjectSelectionPage.css';
 
 export default function SubjectSelectionPage() {
+  const { grade } = useParams<{ grade: string }>();
+
   const subjects = [
     { id: 'portuguese', name: 'Português', icon: '📚', color: '#FF5733' },
     { id: 'math', name: 'Matemática', icon: '🔢', color: '#33FF57' },
@@ -9,16 +11,23 @@ export default function SubjectSelectionPage() {
     { id: 'environment', name: 'Estudo do Meio', icon: '🌿', color: '#FF33A8' },
   ];
 
+  const gradeNames: Record<string, string> = {
+    '1': '1º Ano',
+    '2': '2º Ano',
+    '3': '3º Ano',
+    '4': '4º Ano',
+  };
+
   return (
     <div className="subject-selection-page">
-      <h1>Escolhe uma Disciplina</h1>
+      <h1>Exercícios para {gradeNames[grade || '1']}</h1>
       <p className="intro-text">Seleciona a disciplina que queres praticar:</p>
       
       <div className="subjects-grid">
         {subjects.map(subject => (
           <Link 
             key={subject.id} 
-            to={`/school-exercises/${subject.id}/1`} 
+            to={`/school-exercises/${grade}/${subject.id}/1`} 
             className="subject-card"
             style={{ backgroundColor: subject.color }}
           >
@@ -27,6 +36,10 @@ export default function SubjectSelectionPage() {
           </Link>
         ))}
       </div>
+      
+      <Link to="/school-exercises" className="back-button">
+        ← Voltar para Seleção de Ano
+      </Link>
     </div>
   );
 }

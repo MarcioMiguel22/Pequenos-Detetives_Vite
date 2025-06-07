@@ -1,0 +1,56 @@
+.grade-selection-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.intro-text {
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+}
+
+.grades-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.grade-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  border-radius: 1rem;
+  text-decoration: none;
+  color: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 180px;
+}
+
+.grade-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.grade-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.grade-name {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .grades-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .grade-card {
+    height: 150px;
+  }
+}

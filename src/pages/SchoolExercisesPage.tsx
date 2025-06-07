@@ -5,11 +5,14 @@ import SchoolExerciseCard from '../components/SchoolExerciseCard';
 import '../styles/SchoolExercisesPage.css';
 
 export default function SchoolExercisesPage() {
-  const { subject, id } = useParams<{ subject: string; id: string }>();
+  const { grade, subject, id } = useParams<{ grade: string; subject: string; id: string }>();
   const navigate = useNavigate();
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
   const [filteredExercises] = useState(
-    schoolExercises.filter(exercise => exercise.subject.toLowerCase() === subject)
+    schoolExercises.filter(exercise => 
+      exercise.grade === grade && 
+      exercise.subject.toLowerCase() === subject
+    )
   );
   const [completedExercises, setCompletedExercises] = useState<number[]>([]);
 
@@ -40,7 +43,7 @@ export default function SchoolExercisesPage() {
     // Move to next exercise
     const nextIndex = currentExerciseIndex + 1;
     if (nextIndex < filteredExercises.length) {
-      navigate(`/school-exercises/${subject}/${filteredExercises[nextIndex].id}`);
+      navigate(`/school-exercises/${grade}/${subject}/${filteredExercises[nextIndex].id}`);
     } else {
       // If all exercises are completed, redirect to results page
       navigate('/result', { state: { source: 'school-exercises' } });
@@ -58,20 +61,30 @@ export default function SchoolExercisesPage() {
     }
   };
 
+  const getGradeName = () => {
+    switch (grade) {
+      case '1': return '1º Ano';
+      case '2': return '2º Ano';
+      case '3': return '3º Ano';
+      case '4': return '4º Ano';
+      default: return '';
+    }
+  };
+
   if (filteredExercises.length === 0) {
     return (
       <div className="school-exercises-page">
         <div className="subject-header">
-          <h2>Exercícios de {getSubjectName()}</h2>
+          <h2>Exercícios de {getSubjectName()} - {getGradeName()}</h2>
           <button 
             className="back-button"
-            onClick={() => navigate('/school-exercises')}
+            onClick={() => navigate(`/school-exercises/${grade}`)}
           >
             ← Voltar para Disciplinas
           </button>
         </div>
         <p className="no-exercises-message">
-          Não existem exercícios disponíveis para esta disciplina.
+          Não existem exercícios disponíveis para esta disciplina e ano.
         </p>
       </div>
     );
@@ -82,10 +95,10 @@ export default function SchoolExercisesPage() {
   return (
     <div className="school-exercises-page">
       <div className="subject-header">
-        <h2>Exercícios de {getSubjectName()}</h2>
+        <h2>Exercícios de {getSubjectName()} - {getGradeName()}</h2>
         <button 
           className="back-button"
-          onClick={() => navigate('/school-exercises')}
+          onClick={() => navigate(`/school-exercises/${grade}`)}
         >
           ← Voltar para Disciplinas
         </button>
