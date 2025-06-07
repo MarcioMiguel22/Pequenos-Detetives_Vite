@@ -16,6 +16,7 @@ export default function Header() {
     else if (path.includes('/puzzles')) setActiveLink('puzzles');
     else if (path.includes('/detective')) setActiveLink('detective');
     else if (path.includes('/challenge-riddles')) setActiveLink('challenge-riddles');
+    else if (path.includes('/school-exercises')) setActiveLink('school-exercises');
   }, []);
   
   const toggleMenu = () => {
@@ -87,7 +88,7 @@ export default function Header() {
               <span className="nav-text">Advinhas Desafiantes</span>
             </Link>
           </li>
-           <li className={`nav-item ${activeLink === 'detective' ? 'active' : ''}`}>
+          <li className={`nav-item ${activeLink === 'detective' ? 'active' : ''}`}>
             <Link 
               to="/detective" 
               className="nav-link detective-link"
@@ -95,6 +96,16 @@ export default function Header() {
             >
               <span className="nav-icon">🔍</span>
               <span className="nav-text">Enigmas de Detetive</span>
+            </Link>
+          </li>
+          <li className={`nav-item ${activeLink === 'school-exercises' ? 'active' : ''}`}>
+            <Link 
+              to="/school-exercises" 
+              className="nav-link school-exercises-link"
+              onClick={() => handleNavClick('school-exercises')}
+            >
+              <span className="nav-icon">📚</span>
+              <span className="nav-text">Exercícios Escolares</span>
             </Link>
           </li>
           <li className="nav-item theme-toggle-item">
