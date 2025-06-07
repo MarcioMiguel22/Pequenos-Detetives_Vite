@@ -34,7 +34,11 @@ export default function HomePage() {
             <p>Casos para solucionar como detetive</p>
           </Link>
           
-       
+          <Link to="/school-exercises" className="game-option">
+            <div className="option-icon">📚</div>
+            <h3>Exercícios Escolares</h3>
+            <p>Pratica o que aprendes na escola</p>
+          </Link>
         </div>
       </div>
       
@@ -76,6 +80,9 @@ export default function HomePage() {
           </Link>
           <Link to="/challenge-riddles" className="cta-button">
             Advinhas Desafiantes
+          </Link>
+          <Link to="/school-exercises" className="cta-button">
+            Exercícios Escolares
           </Link>
         </div>
       </div>
